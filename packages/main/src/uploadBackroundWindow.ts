@@ -62,11 +62,11 @@ async function createUplaodWindow() {
        if (err) console.error(err);
        files = files.filter( file => file.endsWith('.mp4' || '.webm' || '.png' || '.jpg'));
        for (const video of files) {
-         console.log(video);
+         //console.log(video);
          //must do the store.set when user click the backgound the want so this will be more dynamic
          if(video == store.get('currentBackground')){
            data = `${app.getPath('userData')}/backgrounds/${video}`;
-           console.log('ssa',data);
+           //console.log('ssa',data);
            break;
          }
        }
@@ -83,19 +83,17 @@ async function createUplaodWindow() {
    * Restore existing BrowserWindow or Create new BrowserWindow
    */
   export async function restoreOrCreateUploadWindow() {
-    let window = BrowserWindow.getAllWindows().find(w => !w.isDestroyed());
-    window = await createUplaodWindow();
-    /*if (window === undefined) {
-      
-    }*/
-    const pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
-    ? import.meta.env.VITE_DEV_SERVER_URL
-    : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
-    console.log('pageUrl', pageUrl+'uploader');
-
-    if (window.isMinimized()) {
+    let window = BrowserWindow.getAllWindows().find(w =>  !w.isDestroyed());
+    window?.webContents.session.clearCache();
+    
+    if (BrowserWindow.getAllWindows().length === 1) {
+      window = await createUplaodWindow();
+    } else{
+      window = BrowserWindow.getAllWindows().filter(w => w.isMinimized())[0];
+    }
+    if (window.isMinimized() ||!window.isFocused()) {
       window.restore();
     }
-  
+
     window.focus();
   }

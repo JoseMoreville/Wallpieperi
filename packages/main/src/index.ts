@@ -22,12 +22,16 @@ app.on('ready', () => {
  * Prevent multiple instances
  */
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
+
 const isSingleInstance = app.requestSingleInstanceLock();
+
 if (!isSingleInstance) {
   app.quit();
   process.exit(0);
 }
 app.on('second-instance', restoreOrCreateWindow);
+
+app.on('second-instance', restoreOrCreateUploadWindow);
 
 
 /**
