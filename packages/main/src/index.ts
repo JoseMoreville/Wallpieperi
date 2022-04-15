@@ -10,6 +10,14 @@ let tray = null;
 const pageName = 'uploadBackground';
 app.dock.hide();
 app.dock.isVisible();
+
+
+app.on('ready', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+})
+
 /**
  * Prevent multiple instances
  */
