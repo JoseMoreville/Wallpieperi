@@ -10,7 +10,7 @@ const store = new Store();
 // second view that is opened by the icon on tray
 // yet to be configured
 
-async function createUplaodWindow() {
+async function createUploadWindow() {
     const browserUploadWindow = new BrowserWindow({
       //skipTaskbar: true,
       movable: true,
@@ -87,7 +87,7 @@ async function createUplaodWindow() {
     window?.webContents.session.clearCache();
     
     if (BrowserWindow.getAllWindows().length === 1) {
-      window = await createUplaodWindow();
+      window = await createUploadWindow();
     } else{
       window = BrowserWindow.getAllWindows().filter(w => w.isMinimized())[0];
     }
