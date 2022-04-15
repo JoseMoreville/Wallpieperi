@@ -42,12 +42,12 @@
     "comma-dangle": [
       "warn",
       "always-multiline"
-    ],
+    ]
     /**
      * Just for beauty
      */
-    "quotes": [
+    /*"quotes": [
       "warn", "single"
-    ]
+    ]*/
   }
 }

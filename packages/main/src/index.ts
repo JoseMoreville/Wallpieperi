@@ -1,16 +1,19 @@
  /* eslint-disable */
-import {app, Menu, Tray, nativeImage} from 'electron';
+import {app, Menu, Tray, nativeImage, ipcMain} from 'electron';
 import './security-restrictions';
 import {restoreOrCreateWindow} from '/@/mainWindow';
-const ElectronStore = require('electron-store');
-const store = new ElectronStore();
+import {restoreOrCreateUploadWindow} from './uploadBackroundWindow';
+const Store = require('electron-store');
+const store = new Store();
 const fs = require('fs');
 let tray = null;
+const pageName = 'uploadBackground';
 app.dock.hide();
 app.dock.isVisible();
 /**
  * Prevent multiple instances
  */
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 const isSingleInstance = app.requestSingleInstanceLock();
 if (!isSingleInstance) {
   app.quit();
@@ -72,12 +75,15 @@ if (import.meta.env.PROD) {
 }
 
 app.whenReady().then(() => {
+  //store.set('currentBackground', 'videoplayback.mp4');
   const img = nativeImage.createFromPath('/Users/hades/Proyectos/Wallpieperi/wallpieperi/buildResources/icon.png');
   const nativeimg = img.resize({width: 16, height: 16});
   tray = new Tray(nativeimg);
   console.log('first', nativeimg.getSize());
   const contextMenu = Menu.buildFromTemplate([
-    { label: 'upload a new background', type: 'normal', click: () =>console.log('first') },
+    { label: 'Upload a new background', type: 'normal', click: () => {
+      restoreOrCreateUploadWindow()
+    } },
     { label: 'Change background', type: 'normal' },
     { label: '', type: 'separator' },
     { label: 'Quit', type: 'normal', click: () => app.quit() },
@@ -85,8 +91,18 @@ app.whenReady().then(() => {
   ]);
   tray.setToolTip('This is my application.');
   tray.setContextMenu(contextMenu);
-  console.log('app.getPath()', app.getPath('userData'));
   if (!fs.existsSync(app.getPath('userData') + '/backgrounds')){
     fs.mkdirSync(app.getPath('userData') + '/backgrounds');
 }
 });
+
+ipcMain.handle('getBackground', (event, arg) => {
+  const file = app.getPath('userData') + '/backgrounds/' + store.get('currentBackground')
+  //event.sender.send('msg-respuesta', 'upload');
+  return file
+})
+
+ipcMain.handle('newBackgroundSelected', (event, arg) => {
+  store.set('currentBackground', arg);
+  return arg
+})
