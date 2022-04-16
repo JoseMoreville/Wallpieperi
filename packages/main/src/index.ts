@@ -1,5 +1,5 @@
  /* eslint-disable */
-import {app, Menu, Tray, nativeImage, ipcMain} from 'electron';
+import {app, Menu, Tray, nativeImage, ipcMain,BrowserWindow} from 'electron';
 import './security-restrictions';
 import {restoreOrCreateWindow} from '/@/mainWindow';
 import {restoreOrCreateUploadWindow} from './uploadBackroundWindow';
@@ -110,11 +110,25 @@ app.whenReady().then(() => {
 
 ipcMain.handle('getBackground', (event, arg) => {
   const file = app.getPath('userData') + '/backgrounds/' + store.get('currentBackground')
-  //event.sender.send('msg-respuesta', 'upload');
   return file
 })
 
-ipcMain.handle('newBackgroundSelected', (event, arg) => {
-  store.set('currentBackground', arg);
-  return arg
+ipcMain.handle('changeBackground', (event, arg) => {
+  store.set('currentBackground', arg.replace(`file://${app.getPath('userData')}/backgrounds/`, ''));
+  BrowserWindow.getAllWindows()[1].reload()
+  return arg.replace(`file://${app.getPath('userData')}/backgrounds/`, '')
+})
+
+ipcMain.handle('getBackgrounds', (event, arg) => {
+  let backgroundCollection:Array<string> = fs.readdirSync(`${app.getPath('userData')}/backgrounds`);
+  backgroundCollection = backgroundCollection
+  .map((background) => `file://${app.getPath('userData')}/backgrounds/${background}`)
+  .filter((background) => 
+  background.endsWith('.mp4') || 
+  background.endsWith('.webm') || 
+  background.endsWith('.png') || 
+  background.endsWith('.jpg') || 
+  background.endsWith('.jpeg'))
+
+  return  backgroundCollection
 })

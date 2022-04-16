@@ -1,12 +1,16 @@
 import { reactive, readonly } from "vue";
 interface StoreState {
-    placeholder: string;
+    currentBackground: string;
 }
 const state:StoreState = reactive({
-    placeholder: '',
+    currentBackground: '',
 });
 
-const mutations = {};
+const mutations = {
+    changeCurrentBackground(background:string){
+        state.currentBackground = background;
+    },
+};
 
 export default {
     state: readonly(state),

@@ -15,9 +15,10 @@ async function createUploadWindow() {
       //skipTaskbar: true,
       movable: true,
       roundedCorners: true,
-      titleBarStyle: 'default',
+      title: 'Upload Background',
       resizable: true,
       hasShadow: true,
+      fullscreenable: false,
       show: true, // Use 'ready-to-show' event to show window
       height: screen.getPrimaryDisplay().size.height-300,
       width: screen.getPrimaryDisplay().size.width-300,
@@ -30,6 +31,8 @@ async function createUploadWindow() {
         preload: join(__dirname, '../../preload/dist/index.cjs'),
         webSecurity: false,
       },
+      //titleBarStyle: 'hidden',
+      titleBarOverlay: true,
     });
   
     /**
@@ -42,10 +45,10 @@ async function createUploadWindow() {
       browserUploadWindow?.show();
   
       if (import.meta.env.DEV) {
-        browserUploadWindow?.webContents.openDevTools();
+        //browserUploadWindow?.webContents.openDevTools();
       }
     });
-  
+    browserUploadWindow.on('close', () => app.dock.hide());
     /**
      * URL for main window.
      * Vite dev server for development.
@@ -60,7 +63,12 @@ async function createUploadWindow() {
     let data = '';
     fs.readdir(`${app.getPath('userData')}/backgrounds`, async (err:Error, files: Array<string>) => {
        if (err) console.error(err);
-       files = files.filter( file => file.endsWith('.mp4' || '.webm' || '.png' || '.jpg'));
+       files = files.filter( file =>
+        file.endsWith('.mp4') || 
+       file.endsWith('.webm') || 
+       file.endsWith('.png') || 
+       file.endsWith('.jpg') || 
+       file.endsWith('.jpeg'));
        for (const video of files) {
          //console.log(video);
          //must do the store.set when user click the backgound the want so this will be more dynamic
@@ -75,7 +83,7 @@ async function createUploadWindow() {
      pageUrl = pageUrl+'uploader';
      //browserUploadWindow.loadFile('/Users/hades/Library/Application Support/wallpieperi/backgrounds/videoplayback.mp4');
     await browserUploadWindow.loadURL(pageUrl);
-  
+     
     return browserUploadWindow;
   }
   
@@ -94,6 +102,6 @@ async function createUploadWindow() {
     if (window.isMinimized() ||!window.isFocused()) {
       window.restore();
     }
-
+    app.dock.show();
     window.focus();
   }

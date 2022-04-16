@@ -14,6 +14,7 @@ async function createWindow() {
     - screen.getPrimaryDisplay().size.width 
     + Math.abs(screen.getPrimaryDisplay().workAreaSize.width - screen.getPrimaryDisplay().size.width),
     y: 0,
+    movable: false,
     autoHideMenuBar: true,
     enableLargerThanScreen: true,
     skipTaskbar: true,
@@ -31,7 +32,7 @@ async function createWindow() {
       webSecurity: false,
     },
   });
-  //browserWindow.setAlwaysOnTop(true, 'status');
+
   /**
    * If you install `show: true` then it can cause issues when trying to close the window.
    * Use `show: false` and listener events `ready-to-show` to fix these issues.
@@ -42,7 +43,7 @@ async function createWindow() {
     browserWindow?.show();
 
     if (import.meta.env.DEV) {
-      browserWindow?.webContents.openDevTools();
+      //browserWindow?.webContents.openDevTools();
     }
   });
 
@@ -61,17 +62,23 @@ async function createWindow() {
         console.error(err);
         return;
       }
-      files = files.filter( file => file.endsWith('.mp4' || '.webm' || '.png' || '.jpg'));
+      files = files.filter( file => 
+      file.endsWith('.mp4') || 
+      file.endsWith('.webm') || 
+      file.endsWith('.png') || 
+      file.endsWith('.jpg') || 
+      file.endsWith('.jpeg'));
+      
       for (const video of files) {
         //console.log(video);
         if(video == store.get('currentBackground')){
           data = `${app.getPath('userData')}/backgrounds/${video}`;
-          console.log('ssa',data);
+          //console.log('ssa',data);
           break;
         }
       }
     });
-    //browserWindow.loadFile(data);
+    browserWindow.loadFile(data);
     //browserWindow.loadFile('/Users/hades/Library/Application Support/wallpieperi/backgrounds/videoplayback.mp4');
 
   // load all files stored in backgrounds folder

@@ -6,40 +6,47 @@ si el usuario sube se agrega un nuevo fondo a la lista de fondos
 la mayoria de los datos como favoritos, fondo seleccionado se guardan en el electron store
 */
 /* eslint-disable no-unused-vars */
-import { ref, onMounted } from "vue";
+import { ref, onMounted, provide } from "vue";
 import BackgroundUploader from "./views/BackgroundUploader.vue";
+import store from "./store/store";
+
 const bg = ref('""');
 const video = ref(null);
 let extension = ref("");
 const isMainRoute = ref(false);
+provide<typeof store>('store',store);
+
 if (!window.location.href.includes("uploader")) {
   isMainRoute.value = true;
 }
+
 onMounted(() => {
   if (!window.location.href.includes("uploader")) {
     window.ipcRenderer
       .invoke("getBackground", "getBackground")
       .then((backgroundLocation) => {
         extension.value = backgroundLocation.split(".").pop();
-        bg.value = "file://" + backgroundLocation;
+        store.mutations.changeCurrentBackground(`file://${backgroundLocation}`);
       });
   }
 });
+
 </script>
 
 <template>
   <div v-if="isMainRoute">
     <video
-      v-if="extension === 'mp4'"
+      v-if="extension === 'mp4' || extension === 'webm'"
       ref="video"
       autoplay
       loop="true"
       muted="true"
-      :src="bg"
+      :type=" extension === 'webm' ? 'video/webm' : 'video/mp4'"
+      :src="store.state.currentBackground"
       class="bg-video"
     />
     <img 
-      v-if="extension === 'jpg'"
+      v-if="extension === 'jpg' || extension === 'png'"
       :src="bg"
       class="bg-image"
     >
