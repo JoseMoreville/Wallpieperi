@@ -3,7 +3,7 @@
     v-if="extension === 'mp4' || extension === 'webm'"
     muted 
     loop
-    class=" w-1/4 h-1/6 rounded-lg object-cover antialiased hover:brightness-110 hover:shadow-lg  hover:shadow-cyan-500/50 aspect-video	ring-1 ring-slate-600/5"
+    class=" w-1/4 h-1/4 rounded-lg object-cover antialiased hover:brightness-110 hover:shadow-lg  hover:shadow-cyan-500/50 aspect-video	ring-1 ring-slate-600/5"
     :src="props.background" 
     :type=" extension === 'webm' ? 'video/webm' : 'video/mp4'"
     alt=""
@@ -14,7 +14,8 @@
   <img 
     v-if="extension === 'jpg' || extension === 'png'"
     :src="props.background"
-    class=" w-1/4 h-1/6 rounded-lg object-cover antialiased hover:brightness-110 hover:shadow-lg  hover:shadow-cyan-500/50 aspect-video	ring-1 ring-slate-600/5"
+    class=" w-1/4 h-1/4 rounded-lg object-cover antialiased hover:brightness-110 hover:shadow-lg  hover:shadow-cyan-500/50 aspect-video	ring-1 ring-slate-600/5"
+    @click="backgroundClick"
   >
 </template>
 <script lang="ts" setup>

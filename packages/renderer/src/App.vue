@@ -10,7 +10,6 @@ import { ref, onMounted, provide } from "vue";
 import BackgroundUploader from "./views/BackgroundUploader.vue";
 import store from "./store/store";
 
-const bg = ref('""');
 const video = ref(null);
 let extension = ref("");
 const isMainRoute = ref(false);
@@ -43,29 +42,14 @@ onMounted(() => {
       muted="true"
       :type=" extension === 'webm' ? 'video/webm' : 'video/mp4'"
       :src="store.state.currentBackground"
-      class="bg-video"
+      class="object-cover antialiased"
     />
     <img 
       v-if="extension === 'jpg' || extension === 'png'"
-      :src="bg"
-      class="bg-image"
+      :src="store.state.currentBackground"
+      class=" object-cover antialiased"
     >
   </div>
   <BackgroundUploader v-else />
 </template>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-.bg-video {
-  background-color: black;
-  margin: 0 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  object-fit: cover;
-}
-</style>
