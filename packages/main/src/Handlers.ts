@@ -62,9 +62,15 @@ export default function useHandlers(): void {
               return;
             }
             fs.copyFileSync(file.filePaths[0], `${app.getPath("userData")}/backgrounds/${file.filePaths[0].split("/").pop()}`);
+            try{
+              BrowserWindow.getAllWindows().filter(window => window.title === 'Upload Background')[0].close();
+            }
+            catch(e){
+              BrowserWindow.getAllWindows().filter(window => window.title === 'Upload Background')[0].destroy();
+            }
           })
           .catch((err) => {
-            store.mutations.setIsLoading(false);
+            console.error(err);
           });
       });
 }

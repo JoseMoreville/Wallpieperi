@@ -1,5 +1,5 @@
  /* eslint-disable */
-import {app, Menu, Tray, nativeImage} from 'electron';
+import {app, Menu, Tray, nativeImage, BrowserWindow} from 'electron';
 import './security-restrictions';
 import {restoreOrCreateWindow} from '/@/mainWindow';
 import {restoreOrCreateUploadWindow} from './uploadBackroundWindow';
@@ -94,10 +94,26 @@ app.whenReady().then(() => {
   tray = new Tray(nativeimg);
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Change background', type: 'normal', click: () => {
-      restoreOrCreateChangeBackgroundWindow()
+      try{
+        BrowserWindow.getAllWindows().filter(window => window.title === 'Upload Background')[0]?.destroy();
+      }
+      catch(e){
+        console.error(e);
+      }
+      finally{
+        restoreOrCreateChangeBackgroundWindow()
+      }
     } },
     { label: 'Upload a new background', type: 'normal', click: () => {
-      restoreOrCreateUploadWindow()
+      try{
+        BrowserWindow.getAllWindows().filter(window => window.title === 'Change Background')[0]?.destroy();
+      }
+      catch(e){
+        console.error(e);
+      }
+      finally{
+        restoreOrCreateUploadWindow()
+      }
     }  },
     { label: '', type: 'separator' },
     { label: 'Quit', type: 'normal', click: () => app.quit() },
