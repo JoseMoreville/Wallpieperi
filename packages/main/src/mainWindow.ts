@@ -70,10 +70,8 @@ async function createWindow() {
       file.endsWith('.jpeg'));
       
       for (const video of files) {
-        //console.log(video);
         if(video == store.get('currentBackground')){
           data = `${app.getPath('userData')}/backgrounds/${video}`;
-          //console.log('ssa',data);
           break;
         }
       }
@@ -81,11 +79,8 @@ async function createWindow() {
     browserWindow.loadFile(data);
     //browserWindow.loadFile('/Users/hades/Library/Application Support/wallpieperi/backgrounds/videoplayback.mp4');
 
-  // load all files stored in backgrounds folder
-
   /**/
   await browserWindow.loadURL(pageUrl);
-  //browserWindow.loadFile('/Users/hades/Library/Application Support/wallpieperi/backgrounds/Genshin Audio.mp4');
   return browserWindow;
 }
 

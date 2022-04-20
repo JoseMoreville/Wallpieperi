@@ -1,28 +1,37 @@
 /* es-lint-disable */
 /* ts-lint-disable */
-import {BrowserWindow, app} from 'electron';
+import {BrowserWindow, screen, app} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
+const fs = require('fs');
+const Store = require('electron-store');
+const store = new Store();
 
+// second view that is opened by the icon on tray
+// yet to be configured
 
-async function createUploadWindow() {
+async function createChangeBackgroundWindow() {
     const browserUploadWindow = new BrowserWindow({
       //skipTaskbar: true,
       movable: true,
       roundedCorners: true,
-      title: 'Upload Background',
-      resizable: false,
+      title: 'Change Background',
+      resizable: true,
       hasShadow: true,
       fullscreenable: false,
       show: true, // Use 'ready-to-show' event to show window
-      height: 200,
-      width: 250,
+      height: screen.getPrimaryDisplay().size.height-300,
+      width: screen.getPrimaryDisplay().size.width-300,
+      minHeight:screen.getPrimaryDisplay().size.height-350,
+      minWidth:screen.getPrimaryDisplay().size.width-600, 
+      enableLargerThanScreen: true,
       webPreferences: {
         nativeWindowOpen: true,
         webviewTag: false, // The webview tag is not recommended. Consider alternatives like iframe or Electron's BrowserView. https://www.electronjs.org/docs/latest/api/webview-tag#warning
         preload: join(__dirname, '../../preload/dist/index.cjs'),
         webSecurity: false,
       },
+      //titleBarStyle: 'hidden',
       titleBarOverlay: true,
     });
   
@@ -49,7 +58,24 @@ async function createUploadWindow() {
       ? import.meta.env.VITE_DEV_SERVER_URL
       : new URL('../renderer/dist/uploadBackground.html', 'file://' + __dirname).toString();
     
-     pageUrl = pageUrl+'upload';
+    let data = '';
+    fs.readdir(`${app.getPath('userData')}/backgrounds`, async (err:Error, files: Array<string>) => {
+       if (err) console.error(err);
+       files = files.filter( file =>
+        file.endsWith('.mp4') || 
+       file.endsWith('.webm') || 
+       file.endsWith('.png') || 
+       file.endsWith('.jpg') || 
+       file.endsWith('.jpeg'));
+       for (const video of files) {
+         if(video == store.get('currentBackground')){
+           data = `${app.getPath('userData')}/backgrounds/${video}`;
+           break;
+         }
+       }
+     });
+     browserUploadWindow.loadFile(data);
+     pageUrl = pageUrl+'changeBackground';
      //browserUploadWindow.loadFile('/Users/hades/Library/Application Support/wallpieperi/backgrounds/videoplayback.mp4');
     await browserUploadWindow.loadURL(pageUrl);
      
@@ -59,12 +85,12 @@ async function createUploadWindow() {
   /**
    * Restore existing BrowserWindow or Create new BrowserWindow
    */
-  export async function restoreOrCreateUploadWindow() {
+  export async function restoreOrCreateChangeBackgroundWindow() {
     let window = BrowserWindow.getAllWindows().find(w =>  !w.isDestroyed());
     window?.webContents.session.clearCache();
     
     if (BrowserWindow.getAllWindows().length === 1) {
-      window = await createUploadWindow();
+      window = await createChangeBackgroundWindow();
     } else{
       window = BrowserWindow.getAllWindows().filter(w => w.isMinimized())[0];
     }
