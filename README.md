@@ -17,10 +17,12 @@ A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>.
 
 <br>
 <p align="center">
-<b style="font-size:1.3em">Status: <span style="color:#74B1AE">Alpha</span> release build this saturday</b>
+<b style="font-size:1.3em">Status: <span style="color:#74B1AE">Alpha</span> </b>
 <br>
-<small>Build is going to be released this saturday, however all code will be available tomorrow after I check everything is ok for an alpha release.
-Expect it to have bug and not to be as sharp as other applications.</small>
+release this saturday.
+<br>
+<small>Alpha build is going to be released this saturday, however all the code will be available tomorrow after I check everything is ok for an alpha release.
+Expect bugs and not to be as sharp as other applications.</small>
 </p>
 <br>
 <br>
