@@ -29,10 +29,10 @@ Expect bugs and not to be as sharp as other applications.</small>
 
 # 📝 Roadmap
 
-- Detect multiple monitors and create an wallpaper for each one (different instances)
+- Detect multiple monitors and create a wallpaper for each one (different instances)
 - Improve image quality of the wallpaper
 - To add an optional particle system
-- Be able to reproduce background music on the wallpaper
+- To be able to reproduce background music on the wallpaper
 - Cursor interaction
 - To be able to detect wheter the user is using an app and stop the wallpaper to save resorces (like battery)
 - To be able to launch the app at startup (Optionally)
