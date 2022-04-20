@@ -5,6 +5,7 @@
     "node": ">=v16.13",
     "npm": ">=8.1"
   },
+  "version": "0.2.0-alpha",
   "main": "packages/main/dist/index.cjs",
   "scripts": {
     "build": "npm run build:main && npm run build:preload && npm run build:renderer",
