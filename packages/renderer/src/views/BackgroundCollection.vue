@@ -9,6 +9,10 @@ window.ipcRenderer.invoke('getBackgrounds', 'getBackgrounds').then((collection) 
   backgroundCollection.value = collection;
 });
 
+function getName(background: string):string {
+  const name = background.split('/').pop()?.split('.').shift();
+  return name || 'No name';
+}
 </script>
 
 <template>
@@ -22,6 +26,7 @@ window.ipcRenderer.invoke('getBackgrounds', 'getBackgrounds').then((collection) 
         v-for="(background, index) in backgroundCollection" 
         :key="`background-${index}`" 
         :background="background"
+        :name="getName(background)"
       />
     </div>
   </div>
