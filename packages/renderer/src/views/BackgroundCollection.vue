@@ -16,12 +16,12 @@ function getName(background: string):string {
 </script>
 
 <template>
-  <div class="h-screen w-screen bg-zinc-800 flex flex-col justify-center">
+  <div class="bg-zinc-800 flex flex-col justify-center w-auto h-full">
     <h1 class="text-white text-3xl font-bold self-center mt-8">
-      Upload a 
+      Change
       <span class="text-transparent bg-clip-text bg-gradient-to-t from-violet-600 to-fuchsia-500">background</span>
     </h1>
-    <div class="flex gap-8 grow flex-wrap basis-1/4 h-1/4 w-10/12 justify-around bg-zinc-700/40 self-center rounded-lg overflow-y-auto my-8 p-8">
+    <div class=" h-full flex gap-8 grow flex-wrap basis-1/4 h-1/4 w-10/12 justify-around bg-zinc-700/40 self-center rounded-lg overflow-y-auto my-8 p-8 min-h-[80%]">
       <BackgroundThumbnail 
         v-for="(background, index) in backgroundCollection" 
         :key="`background-${index}`" 
@@ -32,7 +32,7 @@ function getName(background: string):string {
   </div>
 </template>
 
-<style scoped>
+<style >
 * {
     box-sizing: border-box;
   }

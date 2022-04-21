@@ -4,6 +4,7 @@ import {chrome} from '../../.electron-vendors.cache.json';
 import {join} from 'path';
 import {builtinModules} from 'module';
 import vue from '@vitejs/plugin-vue';
+import WindiCSS from 'vite-plugin-windicss';
 
 const PACKAGE_ROOT = __dirname;
 
@@ -19,7 +20,7 @@ const config = {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',
     },
   },
-  plugins: [vue()],
+  plugins: [WindiCSS(), vue()],
   base: '',
   server: {
     fs: {
@@ -32,7 +33,11 @@ const config = {
     outDir: 'dist',
     assetsDir: '.',
     rollupOptions: {
-      input: join(PACKAGE_ROOT, 'index.html'),
+      input: {
+        main:join(PACKAGE_ROOT, 'index.html'),
+        uploader:join(PACKAGE_ROOT, 'uploadBackground.html'),
+        changeBackground:join(PACKAGE_ROOT, 'changeBackground.html'),
+      },
       external: [
         ...builtinModules.flatMap(p => [p, `node:${p}`]),
       ],

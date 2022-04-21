@@ -5,7 +5,7 @@
     "node": ">=v16.13",
     "npm": ">=8.1"
   },
-  "version": "0.2.0-alpha",
+  "version": "0.3.0-alpha",
   "main": "packages/main/dist/index.cjs",
   "scripts": {
     "build": "npm run build:main && npm run build:preload && npm run build:renderer",
@@ -29,7 +29,6 @@
     "@typescript-eslint/eslint-plugin": "5.12.1",
     "@vitejs/plugin-vue": "2.2.2",
     "@vue/test-utils": "2.0.0-rc.18",
-    "autoprefixer": "^10.4.4",
     "cross-env": "7.0.3",
     "electron": "^17.1.0",
     "electron-builder": "22.14.13",
@@ -39,13 +38,13 @@
     "happy-dom": "2.41.0",
     "nano-staged": "0.6.0",
     "playwright": "1.19.1",
-    "postcss": "^8.4.12",
     "simple-git-hooks": "2.7.0",
-    "tailwindcss": "^3.0.24",
     "typescript": "4.5.5",
     "vite": "2.8.4",
+    "vite-plugin-windicss": "^1.8.4",
     "vitest": "0.5.4",
-    "vue-tsc": "0.31.4"
+    "vue-tsc": "0.31.4",
+    "windicss": "^3.5.1"
   },
   "dependencies": {
     "@vueuse/core": "^8.2.5",

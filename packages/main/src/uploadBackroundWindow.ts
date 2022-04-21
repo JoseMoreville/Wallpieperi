@@ -45,11 +45,10 @@ async function createUploadWindow() {
      * Vite dev server for development.
      * `file://../renderer/index.html` for production and test
      */
-    let pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
-      ? import.meta.env.VITE_DEV_SERVER_URL
+    const pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
+      ? import.meta.env.VITE_DEV_SERVER_URL +'upload'
       : new URL('../renderer/dist/uploadBackground.html', 'file://' + __dirname).toString();
     
-     pageUrl = pageUrl+'upload';
      //browserUploadWindow.loadFile('/Users/hades/Library/Application Support/wallpieperi/backgrounds/videoplayback.mp4');
     await browserUploadWindow.loadURL(pageUrl);
      

@@ -45,18 +45,19 @@ async function createChangeBackgroundWindow() {
       browserUploadWindow?.show();
   
       if (import.meta.env.DEV) {
-        //browserUploadWindow?.webContents.openDevTools();
+        browserUploadWindow?.webContents.openDevTools();
       }
     });
+
     browserUploadWindow.on('close', () => app.dock.hide());
     /**
      * URL for main window.
      * Vite dev server for development.
      * `file://../renderer/index.html` for production and test
      */
-    let pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
-      ? import.meta.env.VITE_DEV_SERVER_URL
-      : new URL('../renderer/dist/uploadBackground.html', 'file://' + __dirname).toString();
+    const pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
+      ? import.meta.env.VITE_DEV_SERVER_URL +'changeBackground'
+      : new URL('../renderer/dist/changeBackground.html', 'file://' + __dirname).toString();
     
     let data = '';
     fs.readdir(`${app.getPath('userData')}/backgrounds`, async (err:Error, files: Array<string>) => {
@@ -75,7 +76,6 @@ async function createChangeBackgroundWindow() {
        }
      });
      browserUploadWindow.loadFile(data);
-     pageUrl = pageUrl+'changeBackground';
      //browserUploadWindow.loadFile('/Users/hades/Library/Application Support/wallpieperi/backgrounds/videoplayback.mp4');
     await browserUploadWindow.loadURL(pageUrl);
      
