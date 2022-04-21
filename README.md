@@ -17,7 +17,7 @@ A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>.
 </p>
 
 <p align="center">
-![App working!](https://github.com/JoseMoreville/JoseMoreville/blob/main/demo-gif.gif)
+<img alt="Wallpieperi" src="https://github.com/JoseMoreville/JoseMoreville/blob/main/demo-gif.gif">
 </p>
 
 <br>
