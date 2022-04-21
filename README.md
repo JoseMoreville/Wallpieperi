@@ -44,6 +44,10 @@ Expect bugs and not to be as sharp as other applications.</small>
 
 <br>
 
+# How to use
+
+adding soon
+
 # Features
 
 - yet to be added
