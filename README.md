@@ -13,7 +13,12 @@ A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>.
 <br>
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/JoseMoreville/wallpieperi?style=social">
 <img alt="GitHub forks" src="https://img.shields.io/github/forks/JoseMoreville/wallpieperi?style=social">
+
 </p>
+
+
+![App working!](https://github.com/JoseMoreville/JoseMoreville/blob/main/demo-gif.gif)
+
 
 <br>
 <p align="center">
@@ -27,7 +32,23 @@ Expect bugs and not to be as sharp as other applications.</small>
 <br>
 <br>
 
-# 📝 Roadmap
+# Installing
+
+> 🚧  &nbsp;  <b>Please note that this is an alpha release.</b> <b style="color:#FABB10">Also the higher the quality the higher cpu usage. 1080 seems to have the best quality/performance ratio but i still need to test it.</b> 🚧 
+
+1. Download the latest release from releases page
+2. Extract the zip file
+3. the app into your Applications folder
+4. Open the app
+5. Enjoy!
+
+<br>
+
+# Features
+
+- yet to be added
+
+# Roadmap
 
 - Detect multiple monitors and create a wallpaper for each one (different instances)
 - Improve image quality of the wallpaper
@@ -51,3 +72,11 @@ Ideas are welcome, please if you have one leave it on discussion or make a PR wi
 
 # Credits
 Tray icon credit: <a href="https://www.flaticon.com/free-icons/pie" title="pie icons">Pie icons created by Freepik - Flaticon</a>
+Wallpapers used on demo: <a href="https://www.youtube.com/c/WallpaperCybust">Wallpaper Cybust</a>
+
+
+# License
+<a href="https://github.com/JoseMoreville/Wallpieperi/blob/main/LICENSE">
+MIT License (MIT)
+</a> 
+<br>
