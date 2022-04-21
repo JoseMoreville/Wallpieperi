@@ -71,7 +71,7 @@ Ideas are welcome, please if you have one leave it on discussion or make a PR wi
 <br>
 
 # Credits
-Tray icon credit: <a href="https://www.flaticon.com/free-icons/pie" title="pie icons">Pie icons created by Freepik - Flaticon</a>
+Tray icon credit: <a href="https://www.flaticon.com/free-icons/pie" title="pie icons">Pie icons created by Freepik - Flaticon</a> <br>
 Wallpapers used on demo: <a href="https://www.youtube.com/c/WallpaperCybust">Wallpaper Cybust</a>
 
 
