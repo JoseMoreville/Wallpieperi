@@ -2,7 +2,7 @@
 
 <br>
 <p align="center">
-<b style="font-size:1.8em" >
+<b style="font-size:2.5em" >
 A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>. 
 </b>
 </p>
@@ -19,14 +19,12 @@ A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>.
 <p align="center">
 <img alt="Wallpieperi" src="https://github.com/JoseMoreville/JoseMoreville/blob/main/demo-gif.gif">
 </p>
-
 <br>
+
 <p align="center">
 <b style="font-size:1.3em">Status: <span style="color:#74B1AE">Alpha</span> </b>
 <br>
-release this saturday.
-<br>
-<small>Alpha build is going to be released this saturday, however all the code will be available tomorrow after I check everything is ok for an alpha release.
+<small style="font-size:0.65em">Alpha build is going to be released this saturday, however all the code will be available tomorrow after I check everything is ok for an alpha release.
 Expect bugs and not to be as sharp as other applications.</small>
 </p>
 <br>
@@ -34,7 +32,7 @@ Expect bugs and not to be as sharp as other applications.</small>
 
 # Installing
 
-> 🚧  &nbsp;  <b>Please note that this is an alpha release.</b> <b style="color:#FABB10">Also the higher the quality the higher cpu usage. 1080 seems to have the best quality/performance ratio but i still need to test it.</b> 🚧 
+> 🚧  &nbsp;  <b style="font-size:0.85em">Please note that this is an alpha release.</b> <b style="color:#FABB10; font-size:0.85em">Also the higher the quality the higher cpu usage. 1080 seems to have the best quality/performance ratio but i still need to test it.</b> 🚧 
 
 1. Download the latest release from releases page
 2. Extract the zip file
@@ -76,7 +74,7 @@ Ideas are welcome, please if you have one leave it on discussion or make a PR wi
 
 # Credits
 Tray icon credit: <a href="https://www.flaticon.com/free-icons/pie" title="pie icons">Pie icons created by Freepik - Flaticon</a> <br>
-Wallpapers used on demo: <a href="https://www.youtube.com/c/WallpaperCybust">Wallpaper Cybust</a>
+Wallpapers used on demo: <a href="https://www.youtube.com/watch?v=w5bU5KkAP4Yt">Genshin Impact - Yae Miko </a>
 
 
 # License
