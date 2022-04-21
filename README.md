@@ -1,10 +1,15 @@
 # Wallpieperi
 
 <br>
-<center>
+<center align="center">
+<p align="center">
 <h2>
 A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>. 
 </h2>
+</p>
+</center>
+<br>
+
 <p align="center">
 <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/JoseMoreville/wallpieperi?color=74B1AE">
 <img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/joseMoreville/wallpieperi?color=74B1AE&&include_prereleases">
@@ -13,9 +18,6 @@ A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>.
 <img alt="GitHub forks" src="https://img.shields.io/github/forks/JoseMoreville/wallpieperi?style=social">
 
 </p>
-</center>
-<br>
-
 
 
 <p align="center">
