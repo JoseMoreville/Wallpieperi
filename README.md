@@ -48,7 +48,12 @@ Expect bugs and not to be as sharp as other applications.</small>
 
 # How to use
 
-adding soon
+### Uploading and changing background
+
+<p align="center">
+<img alt="Wallpieperi" src="https://github.com/JoseMoreville/JoseMoreville/blob/main/How-to-use-wallpieperi.gif">
+</p>
+
 
 # Features
 
