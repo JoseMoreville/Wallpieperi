@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { app, ipcMain, BrowserWindow, dialog } from "electron";
 const Store = require("electron-store");
-const store = new Store();
+export const store = new Store();
 const fs = require("fs");
 
 export default function useHandlers(): void {

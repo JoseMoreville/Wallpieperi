@@ -4,7 +4,8 @@ import './security-restrictions';
 import {restoreOrCreateWindow} from '/@/mainWindow';
 import {restoreOrCreateUploadWindow} from './uploadBackroundWindow';
 import {restoreOrCreateChangeBackgroundWindow} from './changeBackgroundWindow';
-import useHandlers from './Handlers';
+import useHandlers, {store} from './Handlers';
+import {join} from 'path';
 
 const fs = require('fs');
 let tray = null;
@@ -12,12 +13,13 @@ let tray = null;
 app.dock.hide();
 app.dock.isVisible();
 
+//app.commandLine.appendSwitch('limit-fps', '30');
 
 app.on('ready', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
-})
+});
 
 /**
  * Prevent multiple instances
@@ -38,7 +40,10 @@ app.on('second-instance', restoreOrCreateUploadWindow);
 /**
  * Disable Hardware Acceleration for more power-save
  */
-app.disableHardwareAcceleration();
+ if(store.get('disableHardwareAcceleration')) {
+   //disabling hardware acceleration aka cpu rendering 
+   app.disableHardwareAcceleration();
+ }
 
 /**
  * Shout down background process if all windows was closed
@@ -88,8 +93,8 @@ if (import.meta.env.PROD) {
 }
 
 app.whenReady().then(() => {
-  //store.set('currentBackground', 'videoplayback.mp4');
-  const img = nativeImage.createFromPath('/Users/hades/Proyectos/Wallpieperi/wallpieperi/buildResources/pie@256.png');
+  const path = join(__dirname, '../../../buildResources/icon.png');
+  const img = nativeImage.createFromPath(path);
   const nativeimg = img.resize({width: 16, height: 16});
   tray = new Tray(nativeimg);
   const contextMenu = Menu.buildFromTemplate([
@@ -116,6 +121,15 @@ app.whenReady().then(() => {
       }
     }  },
     { label: '', type: 'separator' },
+    { label: 'Turn power save', type: 'checkbox', 
+      checked: store.get('disableHardwareAcceleration'), 
+      click: () => {
+        store.set('disableHardwareAcceleration', !store.get('disableHardwareAcceleration'));
+        app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
+        app.exit(0)
+      }
+   },
+    { label: 'Set framerate (WIP)', type: 'submenu', submenu: [{label:'30fps', type:'checkbox', }, {label:'60fps', type:'checkbox', }] },
     { label: 'Quit', type: 'normal', click: () => app.quit() },
 
   ]);

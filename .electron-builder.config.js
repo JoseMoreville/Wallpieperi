@@ -14,6 +14,7 @@ const config = {
   },
   files: [
     'packages/**/dist/**',
+    'buildResources/**',
   ],
   extraMetadata: {
     version: process.env.VITE_APP_VERSION,

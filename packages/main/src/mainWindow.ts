@@ -32,7 +32,7 @@ async function createWindow() {
       webSecurity: false,
     },
   });
-
+  browserWindow?.webContents.setFrameRate(30); // might make it depend on electron store value to change between 30 and 60 with tray submenu
   /**
    * If you install `show: true` then it can cause issues when trying to close the window.
    * Use `show: false` and listener events `ready-to-show` to fix these issues.

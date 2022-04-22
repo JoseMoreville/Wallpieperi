@@ -28,7 +28,7 @@ A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>.
 <p align="center">
 <b style="font-size:20px">Status: <span style="color:#74B1AE">Alpha</span> </b>
 <br>
-<small style="font-size:0.65em">Alpha build is going to be released this saturday, however all the code will be available tomorrow after I check everything is ok for an alpha release.
+<small style="font-size:0.65em">Alpha build is going to be released this saturday, however all the code will be available after I check everything is ok for an alpha release.
 Expect bugs and not to be as sharp as other applications.</small>
 </p>
 <br>
@@ -62,8 +62,8 @@ adding soon
 - To be able to reproduce background music on the wallpaper
 - Cursor interaction
 - To be able to detect wheter the user is using an app and stop the wallpaper to save resorces (like battery)
-- To be able to launch the app at startup (Optionally)
-- Make it laptop friendly (reduce battery drain and all of that)
+- To be able to launch the app at startup (Optionally) <b style="color:FABB10">WIP</b> 🔋
+- Make it laptop friendly (reduce battery drain and all of that) <b style="color:FABB10">WIP</b> 🔋
 
 <br>
 
