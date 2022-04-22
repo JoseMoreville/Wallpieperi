@@ -154,6 +154,18 @@ app.whenReady().then(() => {
       }}
     ] 
     },
+    { label: 'Open at startup', 
+      type: 'checkbox', 
+      checked: store.get('openAtStartup'),
+      click: () => {
+        store.set('openAtStartup', !store.get('openAtStartup'));
+        app.setLoginItemSettings({
+          openAtLogin: store.get('openAtStartup'),
+        })
+        app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
+        app.exit(0)
+      } 
+    },
     ////////////////////////////////////////////////////////////////////////////////
     { label: 'Quit', type: 'normal', click: () => app.quit() },
 
