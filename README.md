@@ -62,13 +62,13 @@ Expect bugs and not to be as sharp as other applications.</small>
 # Roadmap
 
 - Detect multiple monitors and create a wallpaper for each one (different instances)
-- Improve image quality of the wallpaper
+- Improve image quality of the wallpaper ✅
 - To add an optional particle system
 - To be able to reproduce background music on the wallpaper
 - Cursor interaction
 - To be able to detect wheter the user is using an app and stop the wallpaper to save resorces (like battery)
-- To be able to launch the app at startup (Optionally) <b style="color:FABB10">WIP</b> 🔋
-- Make it laptop friendly (reduce battery drain and all of that) <b style="color:FABB10">WIP</b> 🔋
+- To be able to launch the app at startup (Optionally) ✅
+- Make it laptop friendly (reduce battery drain and all of that) ✅
 
 <br>
 
@@ -83,7 +83,7 @@ Ideas are welcome, please if you have one leave it on discussion or make a PR wi
 
 # Credits
 Tray icon credit: <a href="https://www.flaticon.com/free-icons/pie" title="pie icons">Pie icons created by Freepik - Flaticon</a> <br>
-Wallpapers used on demo: <a href="https://www.youtube.com/watch?v=w5bU5KkAP4Yt">Genshin Impact - Yae Miko </a>
+Wallpapers used on demo: <a href="https://www.youtube.com/watch?v=w5bU5KkAP4Yt">Genshin Impact - Yae Miko </a> /  <a href="https://www.youtube.com/watch?v=ET9Bi9JjQsk">Saber alter FGO</a>
 
 
 # License
