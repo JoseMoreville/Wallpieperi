@@ -23,7 +23,7 @@ async function createWindow() {
     resizable: false,
     hasShadow: false,
     show: false, // Use 'ready-to-show' event to show window
-    height: screen.getPrimaryDisplay().size.height,
+    height: screen.getPrimaryDisplay().size.height + 5,
     width: screen.getPrimaryDisplay().size.width + Math.abs(screen.getPrimaryDisplay().workAreaSize.width - screen.getPrimaryDisplay().size.width),
     webPreferences: {
       nativeWindowOpen: true,
@@ -32,7 +32,12 @@ async function createWindow() {
       webSecurity: false,
     },
   });
-  browserWindow?.webContents.setFrameRate(30); // might make it depend on electron store value to change between 30 and 60 with tray submenu
+  if(!store.get('frameRate')) {
+    store.set('frameRate', 30);
+    browserWindow?.webContents.setFrameRate(30); // might make it depend on electron store value to change between 30 and 60 with tray submenu
+  }else{
+    browserWindow?.webContents.setFrameRate(store.get('frameRate'));
+  }
   /**
    * If you install `show: true` then it can cause issues when trying to close the window.
    * Use `show: false` and listener events `ready-to-show` to fix these issues.

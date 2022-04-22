@@ -32,7 +32,7 @@ function getName(background: string):string {
   </div>
 </template>
 
-<style >
+<style scoped>
 * {
     box-sizing: border-box;
   }

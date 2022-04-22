@@ -121,6 +121,7 @@ app.whenReady().then(() => {
       }
     }  },
     { label: '', type: 'separator' },
+    ////////////////////////////////////////////////////////////////////////////////
     { label: 'Turn power save', type: 'checkbox', 
       checked: store.get('disableHardwareAcceleration'), 
       click: () => {
@@ -129,7 +130,31 @@ app.whenReady().then(() => {
         app.exit(0)
       }
    },
-    { label: 'Set framerate (WIP)', type: 'submenu', submenu: [{label:'30fps', type:'checkbox', }, {label:'60fps', type:'checkbox', }] },
+    ////////////////////////////////////////////////////////////////////////////////
+    { label: 'Set framerate', type: 'submenu', submenu: 
+    [
+      {label:'30fps', type:'checkbox', 
+      checked: store.get('frameRate') === 30, 
+      click: () => { 
+        if(store.get('frameRate') !== 30){
+          store.set('frameRate', 30);
+          app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
+          app.exit(0)
+        }
+      }}, 
+    ////////////////////////////////////////////////////////////////////////////////
+      {label:'60fps', type:'checkbox', 
+      checked: store.get('frameRate') === 60, 
+      click: () => { 
+        if(store.get('frameRate') !== 60){
+          store.set('frameRate', 60);
+          app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
+          app.exit(0)
+        }
+      }}
+    ] 
+    },
+    ////////////////////////////////////////////////////////////////////////////////
     { label: 'Quit', type: 'normal', click: () => app.quit() },
 
   ]);

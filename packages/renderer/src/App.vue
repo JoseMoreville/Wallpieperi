@@ -46,12 +46,13 @@ onMounted(() => {
         muted="true"
         :type="extension === 'webm' ? 'video/webm' : 'video/mp4'"
         :src="store.state.currentBackground"
-        class="object-cover antialiased w-screen h-screen"
+        class="w-screen h-screen pointer-events-none overflow-hidden "
+        :class="extension === 'webm'? 'object-cover' : 'object-fill'"
       />
       <img
         v-if="extension === 'jpg' || extension === 'png'"
         :src="store.state.currentBackground"
-        class="object-cover antialiased w-screen h-screen"
+        class="object-cover antialiased w-screen h-screen pointer-events-none overflow-hidden"
       >
     </div>
     <BackgroundCollection v-if="isChangeBackgroundRoute" />
