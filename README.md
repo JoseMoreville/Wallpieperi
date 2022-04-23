@@ -28,8 +28,7 @@ A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>.
 <p align="center">
 <b style="font-size:20px">Status: <span style="color:#74B1AE">Alpha</span> </b>
 <br>
-<small style="font-size:0.65em">Alpha build is going to be released this saturday, however all the code will be available after I check everything is ok for an alpha release.
-Expect bugs and not to be as sharp as other applications.</small>
+<small style="font-size:0.65em">Due to the app being an alpha build, expect bugs and not to be as sharp as other applications.</small>
 </p>
 <br>
 <br>
@@ -40,7 +39,7 @@ Expect bugs and not to be as sharp as other applications.</small>
 
 1. Download the latest release from releases page
 2. Extract the zip file
-3. the app into your Applications folder
+3. drop the app into your Applications folder
 4. Open the app
 5. Enjoy!
 
@@ -81,6 +80,12 @@ All of those points are planned but can be changed or removed in the future. Dep
 
 Ideas are welcome, please if you have one leave it on discussion or make a PR with a change you want to add, if it's cool it's gonna be added on a future version!
 </small>
+
+# Keep in mind
+- Enabling the app to run at startup might have a negative impact on battery life.
+- Using power save mode increases the cpu usage since it disables hardware acceleration.
+- The app is still in alpha and might have bugs.
+
 
 <br>
 <br>
