@@ -1,5 +1,5 @@
  /* eslint-disable */
-import {app, Menu, Tray, nativeImage, BrowserWindow} from 'electron';
+import {app, Menu, Tray, nativeImage, BrowserWindow, ipcMain} from 'electron';
 import './security-restrictions';
 import {restoreOrCreateWindow} from '/@/mainWindow';
 import {restoreOrCreateUploadWindow} from './uploadBackroundWindow';
@@ -18,6 +18,10 @@ app.dock.isVisible();
 app.on('ready', () => {
   if (process.platform !== 'darwin') {
     app.quit();
+  }
+  console.log(store.get('enableAudio'))
+  if(!store.get('enableAudio')){
+    store.set('enableAudio', false)
   }
 });
 
@@ -166,6 +170,14 @@ app.whenReady().then(() => {
         app.exit(0)
       } 
     },
+    { label: "Enable Audio (Not recommended)", type: 'checkbox', 
+    checked: store.get('enableAudio'),
+    click: () => {
+      store.set('enableAudio', !store.get('enableAudio'));
+      app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
+      app.exit(0)
+    } },
+    { label: '', type: 'separator' },
     ////////////////////////////////////////////////////////////////////////////////
     { label: 'Quit', type: 'normal', click: () => app.quit() },
 

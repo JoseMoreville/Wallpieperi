@@ -75,3 +75,7 @@ export default function useHandlers(): void {
       });
 }
 
+ipcMain.handle('getAudioStatus', (event, arg) => {
+  return store.get('enableAudio')
+})
+
