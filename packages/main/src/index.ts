@@ -182,7 +182,7 @@ app.whenReady().then(() => {
     { label: 'Quit', type: 'normal', click: () => app.quit() },
 
   ]);
-  tray.setToolTip('This is my application.');
+  tray.setToolTip('Thank you for using Wallpieperi!');
   tray.setContextMenu(contextMenu);
   if (!fs.existsSync(app.getPath('userData') + '/backgrounds')){
     fs.mkdirSync(app.getPath('userData') + '/backgrounds');

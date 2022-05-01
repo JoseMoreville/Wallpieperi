@@ -85,7 +85,8 @@ Ideas are welcome, please if you have one leave it on discussion or make a PR wi
 - Enabling the app to run at startup might have a negative impact on battery life.
 - Using power save mode increases the cpu usage since it disables hardware acceleration.
 - The app is still in alpha and might have bugs.
-
+- In case you want to build from source, you need to download my fork of active-win and compile and change the main executable of the node_module active-win folder to the new one. if you just want to make new features theres no need for you to do that.
+- I'll try to improve the sound feature but it's not a priority. 
 
 <br>
 <br>

@@ -16,7 +16,7 @@ const isUploadBackgroundRoute = computed(() =>
 const isMainRoute:Ref<boolean> = ref(!isChangeBackgroundRoute.value && !isUploadBackgroundRoute.value);
 
 provide <typeof store>("store", store);
-
+const backgroundVideo = ref(null);
 const {extension, shouldVideoBeMuted} = useBackground(isMainRoute,store);
 
 </script>
@@ -27,6 +27,7 @@ const {extension, shouldVideoBeMuted} = useBackground(isMainRoute,store);
       <video
         v-if="extension === 'mp4' || extension === 'webm'"
         id="video"
+        ref="backgroundVideo"
         autoplay
         loop="true"
         :muted="shouldVideoBeMuted"

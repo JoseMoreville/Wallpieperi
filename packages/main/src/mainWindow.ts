@@ -9,7 +9,7 @@ async function createWindow() {
   //browserWindow.setVisibleOnAllWorkspaces(true)
   // let the dock be on top of the window
   const browserWindow = new BrowserWindow({
-    type: 'desktop',
+    type: 'desktop', 
     x: screen.getPrimaryDisplay().workAreaSize.width 
     - screen.getPrimaryDisplay().size.width 
     + Math.abs(screen.getPrimaryDisplay().workAreaSize.width - screen.getPrimaryDisplay().size.width),

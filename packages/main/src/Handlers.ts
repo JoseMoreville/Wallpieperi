@@ -3,6 +3,7 @@ import { app, ipcMain, BrowserWindow, dialog } from "electron";
 const Store = require("electron-store");
 export const store = new Store();
 const fs = require("fs");
+const activeWindow = require('active-win');
 
 export default function useHandlers(): void {
     ipcMain.handle("getBackground", (event, arg) => {
@@ -77,5 +78,9 @@ export default function useHandlers(): void {
 
 ipcMain.handle('getAudioStatus', (event, arg) => {
   return store.get('enableAudio')
+})
+
+ipcMain.handle('active', async (event, arg) => {
+  return await activeWindow.sync();
 })
 
