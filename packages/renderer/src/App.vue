@@ -18,6 +18,13 @@ const isMainRoute:Ref<boolean> = ref(!isChangeBackgroundRoute.value && !isUpload
 provide <typeof store>("store", store);
 const backgroundVideo = ref(null);
 const {extension, shouldVideoBeMuted} = useBackground(isMainRoute,store);
+try{
+window.ipcRenderer.invoke('instanceId', 'instanceId').then((id)=>{
+  console.log(id);
+}); 
+}catch(e){
+  console.log(e);
+}
 
 </script>
 
