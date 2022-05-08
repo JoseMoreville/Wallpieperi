@@ -1,15 +1,17 @@
-import {BrowserWindow, screen, app} from 'electron';
+import {BrowserWindow, screen, app,ipcMain} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
 const fs = require('fs');
 const Store = require('electron-store');
 const store = new Store();
 
+let browserWindow: BrowserWindow;
+
 async function createWindow() {
   //browserWindow.setVisibleOnAllWorkspaces(true)
   // let the dock be on top of the window
-  const browserWindow = new BrowserWindow({
-    type: 'desktop', 
+   browserWindow = new BrowserWindow({
+   type: 'desktop', 
     x: screen.getPrimaryDisplay().workAreaSize.width 
     - screen.getPrimaryDisplay().size.width 
     + Math.abs(screen.getPrimaryDisplay().workAreaSize.width - screen.getPrimaryDisplay().size.width),
@@ -105,3 +107,7 @@ export async function restoreOrCreateWindow() {
 
   window.focus();
 }
+
+ipcMain.handle('getAllScreens', () => {
+  return screen.getAllDisplays().length;
+});

@@ -192,6 +192,7 @@ app.whenReady().then(() => {
     fs.mkdirSync(app.getPath('userData') + '/backgrounds');
 }
 });
+
 interface externalWindow {
   x: number;
   y: number;
@@ -200,6 +201,7 @@ interface externalWindow {
   width: number;
   height: number;
  }
+ 
 app.whenReady().then(() => {
   useHandlers();
 

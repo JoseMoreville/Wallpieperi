@@ -45,7 +45,7 @@ export async function createExternalScreenWindow(position: {x: number, y: number
   browserWindow.on('ready-to-show', () => {
     browserWindow?.show();
     if (import.meta.env.DEV) {
-      browserWindow?.webContents.openDevTools();
+      //browserWindow?.webContents.openDevTools();
     }
   });
 
@@ -54,9 +54,9 @@ export async function createExternalScreenWindow(position: {x: number, y: number
    * Vite dev server for development.
    * `file://../renderer/index.html` for production and test
    */
-  const pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
-    ? import.meta.env.VITE_DEV_SERVER_URL
-    : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
+   const pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
+   ? import.meta.env.VITE_DEV_SERVER_URL +'externalScreen'
+   : new URL('../renderer/dist/externalScreen.html', 'file://' + __dirname).toString();
 
   let data = '';
    fs.readdir(`${app.getPath('userData')}/backgrounds`, async (err:Error, files: Array<string>) => {
