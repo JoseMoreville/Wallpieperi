@@ -28,8 +28,10 @@
 const props = defineProps<{
   background: string;
   name?: string;
+  screen: number;
 }>();
-
+// eslint-disable-next-line
+const emit = defineEmits(['backgroundName']);
 const extension = props.background.split(".").pop();
 
 function backgrounHover(event: MouseEvent) {
@@ -40,6 +42,10 @@ function backgroundLeave(event: MouseEvent) {
   (event.target as HTMLVideoElement).currentTime = 0;
 }
 function backgroundClick() {
-  window.ipcRenderer.invoke('changeBackground', props.background);
+  const data = {[props.screen]: props.background};
+  console.log(data);
+  window.ipcRenderer.invoke('changeBackground', data);
+  //window.ipcRenderer.invoke('changeBackground', props.background);
+  emit('backgroundName', props.background);
 }
 </script>

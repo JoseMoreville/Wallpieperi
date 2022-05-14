@@ -7,18 +7,29 @@ const activeWindow = require('active-win');
 
 export default function useHandlers(): void {
     ipcMain.handle("getBackground", (event, arg) => {
-        const file =
-          app.getPath("userData") + "/backgrounds/" + store.get("currentBackground");
-        return file;
+      const collection = store.get("currentBackground");
+      for (const screen in collection) {
+        if (Object.prototype.hasOwnProperty.call(collection, screen)) {
+          const background = app.getPath("userData") + "/backgrounds/" + collection[screen];
+          collection[screen] = background
+        }
+      }
+        return collection;
       });
       
       ipcMain.handle("changeBackground", (event, arg) => {
-        store.set(
-          "currentBackground",
-          arg.replace(`file://${app.getPath("userData")}/backgrounds/`, "")
-        );
+        const DATA_BEFORE_UPDATE = store.get("currentBackground")
+        let UPDATED_DATA = { ...DATA_BEFORE_UPDATE}
+        for (const key in arg) {
+          if (Object.prototype.hasOwnProperty.call(arg, key)) {
+            const element = arg[key].replace(`file://${app.getPath("userData")}/backgrounds/`, "");
+            UPDATED_DATA[key] = element
+          }
+        }
+        store.set("currentBackground", UPDATED_DATA);
         BrowserWindow.getAllWindows()[1].reload();
-        return arg.replace(`file://${app.getPath("userData")}/backgrounds/`, "");
+        BrowserWindow.getAllWindows()[2].reload();
+        return UPDATED_DATA;
       });
       
       ipcMain.handle("getBackgrounds", (event, arg) => {

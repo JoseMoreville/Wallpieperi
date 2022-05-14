@@ -5,7 +5,7 @@ interface StoreState {
   };
 }
 
-const useBackground = (isMainRoute: Ref<boolean>, store: StoreState) => {
+const useBackground = (isMainRoute: Ref<boolean>, store: StoreState, screenId:Ref<number>) => {
   const shouldVideoBeMuted = ref(true);
   const extension = ref("");
   const isBackgroundActive:Ref<boolean> = ref(true);
@@ -44,9 +44,25 @@ const useBackground = (isMainRoute: Ref<boolean>, store: StoreState) => {
     if (isMainRoute.value) {
       window.ipcRenderer
         .invoke("getBackground", "getBackground")
-        .then((backgroundLocation) => {
-          extension.value = backgroundLocation.split(".").pop();
-          store.mutations.changeCurrentBackground(`file://${backgroundLocation}`);
+        .then((backgroundLocations) => {
+          //  console.log(backgroundLocations);
+          for (const screen in backgroundLocations) {
+            if (Object.prototype.hasOwnProperty.call(backgroundLocations, screen)) {
+              if(screenId.value === parseInt(screen)){
+                extension.value = backgroundLocations[screen].split(".").pop();
+                console.log(backgroundLocations[screen], 'backgroundLocations[screen]');
+                backgroundLocations[screen] = `file://${backgroundLocations[screen]}`;
+                store.mutations.changeCurrentBackground(backgroundLocations);
+              }
+             // const backgroundLocation = backgroundLocations[screen].split(".").pop();
+              //console.log(screenId.value, 'screenId');
+              //store.mutations.changeCurrentBackground(`file://${backgroundLocation}`);
+
+              //console.log(element, 'element');
+            }
+          }
+          /*extension.value = backgroundLocation.split(".").pop();
+          store.mutations.changeCurrentBackground(`file://${backgroundLocation}`);*/
         });
     }
   });

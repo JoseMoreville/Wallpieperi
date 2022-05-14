@@ -1,6 +1,6 @@
 /* es-lint-disable */
 /* ts-lint-disable */
-import {BrowserWindow, app} from 'electron';
+import {BrowserWindow, app, screen} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
 
@@ -62,7 +62,7 @@ async function createUploadWindow() {
     let window = BrowserWindow.getAllWindows().find(w =>  !w.isDestroyed());
     window?.webContents.session.clearCache();
     
-    if (BrowserWindow.getAllWindows().length === 1) {
+    if (BrowserWindow.getAllWindows().length === 1 || BrowserWindow.getAllWindows().length === screen.getAllDisplays().length) {
       window = await createUploadWindow();
     } else{
       window = BrowserWindow.getAllWindows().filter(w => w.isMinimized())[0];

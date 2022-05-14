@@ -1,4 +1,4 @@
-import {BrowserWindow, screen, app,ipcMain} from 'electron';
+import {BrowserWindow, app, screen, ipcMain} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
 const fs = require('fs');
@@ -7,15 +7,11 @@ const store = new Store();
 
 let browserWindow: BrowserWindow;
 
-async function createWindow() {
-  //browserWindow.setVisibleOnAllWorkspaces(true)
-  // let the dock be on top of the window
-   browserWindow = new BrowserWindow({
-   type: 'desktop', 
-    x: screen.getPrimaryDisplay().workAreaSize.width 
-    - screen.getPrimaryDisplay().size.width 
-    + Math.abs(screen.getPrimaryDisplay().workAreaSize.width - screen.getPrimaryDisplay().size.width),
-    y: 0,
+export async function createExternalScreenWindow(position: {x: number, y: number}, size: {width: number, height: number}) {
+  browserWindow = new BrowserWindow({
+    type: 'desktop', 
+    x: position.x,
+    y: position.y,
     movable: false,
     autoHideMenuBar: true,
     enableLargerThanScreen: true,
@@ -25,8 +21,8 @@ async function createWindow() {
     resizable: false,
     hasShadow: false,
     show: false, // Use 'ready-to-show' event to show window
-    height: screen.getPrimaryDisplay().size.height + 5,
-    width: screen.getPrimaryDisplay().size.width + Math.abs(screen.getPrimaryDisplay().workAreaSize.width - screen.getPrimaryDisplay().size.width),
+    height: size.height + 5,
+    width: size.width,
     webPreferences: {
       nativeWindowOpen: true,
       webviewTag: false, // The webview tag is not recommended. Consider alternatives like iframe or Electron's BrowserView. https://www.electronjs.org/docs/latest/api/webview-tag#warning
@@ -48,7 +44,6 @@ async function createWindow() {
    */
   browserWindow.on('ready-to-show', () => {
     browserWindow?.show();
-
     if (import.meta.env.DEV) {
       //browserWindow?.webContents.openDevTools();
     }
@@ -59,9 +54,9 @@ async function createWindow() {
    * Vite dev server for development.
    * `file://../renderer/index.html` for production and test
    */
-  const pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
-    ? import.meta.env.VITE_DEV_SERVER_URL
-    : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
+   const pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
+   ? import.meta.env.VITE_DEV_SERVER_URL +'externalScreen'
+   : new URL('../renderer/dist/externalScreen.html', 'file://' + __dirname).toString();
 
   let data = '';
    fs.readdir(`${app.getPath('userData')}/backgrounds`, async (err:Error, files: Array<string>) => {
@@ -84,30 +79,11 @@ async function createWindow() {
       }
     });
     browserWindow.loadFile(data);
-    //browserWindow.loadFile('/Users/hades/Library/Application Support/wallpieperi/backgrounds/videoplayback.mp4');
-
-  /**/
   await browserWindow.loadURL(pageUrl);
+  //console.log('first', screen.getDisplayMatching(browserWindow.getBounds()).id);
   return browserWindow;
 }
 
-/**
- * Restore existing BrowserWindow or Create new BrowserWindow
- */
-export async function restoreOrCreateWindow() {
-  let window = BrowserWindow.getAllWindows().find(w => !w.isDestroyed());
-  window?.webContents.session.clearCache();
-  if (window === undefined) {
-    window = await createWindow();
-  }
-
-  if (window.isMinimized()) {
-    window.restore();
-  }
-
-  window.focus();
-}
-
-ipcMain.handle('getAllScreens', () => {
-  return screen.getAllDisplays().length;
+ipcMain.handle('instanceId', () => {
+  return screen.getDisplayMatching(browserWindow.getBounds()).id;
 });

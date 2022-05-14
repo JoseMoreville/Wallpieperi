@@ -89,7 +89,7 @@ async function createChangeBackgroundWindow() {
     let window = BrowserWindow.getAllWindows().find(w =>  !w.isDestroyed());
     window?.webContents.session.clearCache();
     
-    if (BrowserWindow.getAllWindows().length === 1) {
+    if (BrowserWindow.getAllWindows().length === 1 || BrowserWindow.getAllWindows().length === screen.getAllDisplays().length) {
       window = await createChangeBackgroundWindow();
     } else{
       window = BrowserWindow.getAllWindows().filter(w => w.isMinimized())[0];

@@ -37,6 +37,7 @@ const config = {
         main:join(PACKAGE_ROOT, 'index.html'),
         uploader:join(PACKAGE_ROOT, 'uploadBackground.html'),
         changeBackground:join(PACKAGE_ROOT, 'changeBackground.html'),
+        externalScreen:join(PACKAGE_ROOT, 'externalScreen.html'),
       },
       external: [
         ...builtinModules.flatMap(p => [p, `node:${p}`]),
