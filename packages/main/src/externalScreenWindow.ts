@@ -1,15 +1,15 @@
-import {BrowserWindow, app, screen, ipcMain} from 'electron';
-import {join} from 'path';
-import {URL} from 'url';
+import { BrowserWindow, app, screen, ipcMain } from 'electron';
+import { join } from 'path';
+import { URL } from 'url';
 const fs = require('fs');
 const Store = require('electron-store');
 const store = new Store();
 
 let browserWindow: BrowserWindow;
 
-export async function createExternalScreenWindow(position: {x: number, y: number}, size: {width: number, height: number}) {
+export async function createExternalScreenWindow(position: { x: number, y: number }, size: { width: number, height: number }) {
   browserWindow = new BrowserWindow({
-    type: 'desktop', 
+    type: 'desktop',
     x: position.x,
     y: position.y,
     movable: false,
@@ -30,10 +30,10 @@ export async function createExternalScreenWindow(position: {x: number, y: number
       webSecurity: false,
     },
   });
-  if(!store.get('frameRate')) {
+  if (!store.get('frameRate')) {
     store.set('frameRate', 30);
     browserWindow?.webContents.setFrameRate(30); // might make it depend on electron store value to change between 30 and 60 with tray submenu
-  }else{
+  } else {
     browserWindow?.webContents.setFrameRate(store.get('frameRate'));
   }
   /**
@@ -54,31 +54,35 @@ export async function createExternalScreenWindow(position: {x: number, y: number
    * Vite dev server for development.
    * `file://../renderer/index.html` for production and test
    */
-   const pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
-   ? import.meta.env.VITE_DEV_SERVER_URL +'externalScreen'
-   : new URL('../renderer/dist/externalScreen.html', 'file://' + __dirname).toString();
+
+  /**
+   * const pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
+   * ? import.meta.env.VITE_DEV_SERVER_URL +'externalScreen'
+   * : new URL('../renderer/dist/externalScreen.html', 'file://' + __dirname).toString();
+  */
+  const pageUrl = new URL('../renderer/dist/externalScreen.html', 'file://' + __dirname).toString();
 
   let data = '';
-   fs.readdir(`${app.getPath('userData')}/backgrounds`, async (err:Error, files: Array<string>) => {
-      if (err){
-        console.error(err);
-        return;
-      }
-      files = files.filter( file => 
-      file.endsWith('.mp4') || 
-      file.endsWith('.webm') || 
-      file.endsWith('.png') || 
-      file.endsWith('.jpg') || 
+  fs.readdir(`${app.getPath('userData')}/backgrounds`, async (err: Error, files: Array<string>) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    files = files.filter(file =>
+      file.endsWith('.mp4') ||
+      file.endsWith('.webm') ||
+      file.endsWith('.png') ||
+      file.endsWith('.jpg') ||
       file.endsWith('.jpeg'));
-      
-      for (const video of files) {
-        if(video == store.get('currentBackground')){
-          data = `${app.getPath('userData')}/backgrounds/${video}`;
-          break;
-        }
+
+    for (const video of files) {
+      if (video == store.get('currentBackground')) {
+        data = `${app.getPath('userData')}/backgrounds/${video}`;
+        break;
       }
-    });
-    browserWindow.loadFile(data);
+    }
+  });
+  browserWindow.loadFile(data);
   await browserWindow.loadURL(pageUrl);
   //console.log('first', screen.getDisplayMatching(browserWindow.getBounds()).id);
   return browserWindow;

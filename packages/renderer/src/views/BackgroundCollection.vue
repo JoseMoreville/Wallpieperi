@@ -2,13 +2,18 @@
 import { ref, defineProps } from 'vue';
 import type { Ref } from 'vue';
 import BackgroundThumbnail from '../components/BackgroundThumbnail.vue';
+
+import { useHead } from '@vueuse/head';
+useHead({
+  title: `Change Background`,
+});
 const backgroundCollection:Ref< Array<string> > = ref([]);
 const currentScreen = ref(1);
 const selectedBackground = ref('');
 const props = defineProps<{
   numberOfScreens: number;
 }>();
-// get all background colection from electron
+// get all background collection from electron
 window.ipcRenderer.invoke('getBackgrounds', 'getBackgrounds').then((collection) => {
   backgroundCollection.value = collection;
 });
