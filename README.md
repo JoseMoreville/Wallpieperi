@@ -56,7 +56,7 @@ A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>.
 
 # Features
 
-- Accepts multiple media files (mp4, webm, png, jpg, gif)
+- Accepts multiple media files (mp4, webM, png, jpg, gif)
 - Can chose between 60fps, 30fps (might add more options later)
 - Media type can have audio (Might add option to add custom audio later)
 - Supports all screen resolutions (Tested on 4k, 1080p, 720p screens)
@@ -64,12 +64,12 @@ A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>.
 
 # Roadmap
 
-- Detect multiple monitors and create a wallpaper for each one (different instances)
+- Detect multiple monitors and create a wallpaper for each one (different instances) ✅
 - Improve image quality of the wallpaper ✅
 - To add an optional particle system
 - To be able to reproduce background music on the wallpaper ✅
 - Cursor interaction
-- To be able to detect wheter the user is using an app and stop the wallpaper to save resorces (like battery) ✅ (Unstable and experimental, available on next build)
+- To be able to detect whether the user is using an app and stop the wallpaper to save resources (like battery) ✅ (Unstable and experimental, available on next build)
 - To be able to launch the app at startup (Optionally) ✅
 - Make it laptop friendly (reduce battery drain and all of that) ✅
 
