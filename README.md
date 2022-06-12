@@ -69,7 +69,7 @@ A desktop live wallpaper app made for <span style="color:#74B1AE"> Mac</span>.
 - To add an optional particle system
 - To be able to reproduce background music on the wallpaper ✅
 - Cursor interaction
-- To be able to detect whether the user is using an app and stop the wallpaper to save resources (like battery) ✅ (Unstable and experimental, available on next build)
+- To be able to detect whether the user is using an app and stop the wallpaper to save resources (like battery) ✅ 
 - To be able to launch the app at startup (Optionally) ✅
 - Make it laptop friendly (reduce battery drain and all of that) ✅
 
