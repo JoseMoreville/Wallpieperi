@@ -1,11 +1,13 @@
- /* eslint-disable */
-import {app, Menu, Tray, nativeImage, BrowserWindow, ipcMain} from 'electron';
+/* eslint-disable semi */
+
+import {app, Menu, Tray, nativeImage, BrowserWindow, screen} from 'electron';
 import './security-restrictions';
 import {restoreOrCreateWindow} from '/@/mainWindow';
 import {restoreOrCreateUploadWindow} from './uploadBackroundWindow';
 import {restoreOrCreateChangeBackgroundWindow} from './changeBackgroundWindow';
 import useHandlers, {store} from './Handlers';
 import {join} from 'path';
+import {createExternalScreenWindow} from './externalScreenWindow';
 
 const fs = require('fs');
 let tray = null;
@@ -19,9 +21,9 @@ app.on('ready', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
-  console.log(store.get('enableAudio'))
+  //console.log(store.get('enableAudio'));
   if(!store.get('enableAudio')){
-    store.set('enableAudio', false)
+    store.set('enableAudio', false);
   }
 });
 
@@ -101,27 +103,30 @@ app.whenReady().then(() => {
   const img = nativeImage.createFromPath(path);
   const nativeimg = img.resize({width: 16, height: 16});
   tray = new Tray(nativeimg);
+
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Change background', type: 'normal', click: () => {
       try{
+        //console.log('BrowserWindow.getAllWindows()', BrowserWindow.getAllWindows().map(w => w.title));
         BrowserWindow.getAllWindows().filter(window => window.title === 'Upload Background')[0]?.destroy();
       }
       catch(e){
         console.error(e);
       }
       finally{
-        restoreOrCreateChangeBackgroundWindow()
+        restoreOrCreateChangeBackgroundWindow();
       }
     } },
     { label: 'Upload a new background', type: 'normal', click: () => {
       try{
+        //console.log('BrowserWindow.getAllWindows()', BrowserWindow.getAllWindows().map(w => w.title));
         BrowserWindow.getAllWindows().filter(window => window.title === 'Change Background')[0]?.destroy();
       }
       catch(e){
         console.error(e);
       }
       finally{
-        restoreOrCreateUploadWindow()
+        restoreOrCreateUploadWindow();
       }
     }  },
     { label: '', type: 'separator' },
@@ -130,9 +135,9 @@ app.whenReady().then(() => {
       checked: store.get('disableHardwareAcceleration'), 
       click: () => {
         store.set('disableHardwareAcceleration', !store.get('disableHardwareAcceleration'));
-        app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
+        app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) });
         app.exit(0)
-      }
+      },
    },
     ////////////////////////////////////////////////////////////////////////////////
     { label: 'Set framerate', type: 'submenu', submenu: 
@@ -142,8 +147,8 @@ app.whenReady().then(() => {
       click: () => { 
         if(store.get('frameRate') !== 30){
           store.set('frameRate', 30);
-          app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
-          app.exit(0)
+          app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) });
+          app.exit(0);
         }
       }}, 
     ////////////////////////////////////////////////////////////////////////////////
@@ -152,11 +157,11 @@ app.whenReady().then(() => {
       click: () => { 
         if(store.get('frameRate') !== 60){
           store.set('frameRate', 60);
-          app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
-          app.exit(0)
+          app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) });
+          app.exit(0);
         }
-      }}
-    ] 
+      }},
+    ] ,
     },
     { label: 'Open at startup', 
       type: 'checkbox', 
@@ -165,17 +170,17 @@ app.whenReady().then(() => {
         store.set('openAtStartup', !store.get('openAtStartup'));
         app.setLoginItemSettings({
           openAtLogin: store.get('openAtStartup'),
-        })
-        app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
-        app.exit(0)
-      } 
+        });
+        app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) });
+        app.exit(0);
+      },
     },
     { label: "Enable Audio (Not recommended)", type: 'checkbox', 
     checked: store.get('enableAudio'),
     click: () => {
       store.set('enableAudio', !store.get('enableAudio'));
-      app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
-      app.exit(0)
+      app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) });
+      app.exit(0);
     } },
     { label: '', type: 'separator' },
     ////////////////////////////////////////////////////////////////////////////////
@@ -189,6 +194,35 @@ app.whenReady().then(() => {
 }
 });
 
+interface externalWindow {
+  x: number;
+  y: number;
+ }
+ interface displaySize {
+  width: number;
+  height: number;
+ }
+ 
 app.whenReady().then(() => {
-  useHandlers()
-})
+  useHandlers();
+
+  const displays = screen.getAllDisplays();
+
+  const externalDisplay = displays.find((display) => {
+    return display.bounds.x !== 0 || display.bounds.y !== 0;
+  });
+  
+  const externalDisplayBounds = {
+    x: externalDisplay?.bounds.x, 
+    y: externalDisplay?.bounds.y,
+  } as externalWindow; // typecast to avoid error
+
+  const externalDisplaySize = {
+    width: externalDisplay?.bounds.width, 
+    height: externalDisplay?.bounds.height,
+  } as displaySize; // typecast to avoid error
+
+  if (externalDisplay) {
+    createExternalScreenWindow(externalDisplayBounds, externalDisplaySize);
+  }
+});

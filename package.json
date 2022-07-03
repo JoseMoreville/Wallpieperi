@@ -1,5 +1,10 @@
 {
   "name": "wallpieperi",
+  "description": "A desktop live wallpaper app made for Mac.",
+  "author": {
+    "name": "José Moreno",
+    "email": "hadeswebdevelopment@gmail.com"
+  },
   "private": true,
   "engines": {
     "node": ">=v16.13",
@@ -49,6 +54,7 @@
   "dependencies": {
     "@vueuse/core": "^8.2.5",
     "@vueuse/electron": "^8.2.5",
+    "@vueuse/head": "^0.7.6",
     "active-win": "^7.7.2",
     "electron-store": "^8.0.1",
     "electron-updater": "4.6.5",
