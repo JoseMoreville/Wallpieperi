@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import { useHead } from '@vueuse/head';
+useHead({
+  title: `Upload Background`,
+});
 
 function openDialog():void {
   window.ipcRenderer.invoke('openDialog', 'openDialog');

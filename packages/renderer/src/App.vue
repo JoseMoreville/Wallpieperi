@@ -5,7 +5,6 @@ import BackgroundCollection from "./views/BackgroundCollection.vue";
 import BackgroundUploader from "./views/BackgroundUploader.vue";
 import store from "./store/store";
 import useBackground from "./modules/helpers";
-
 const isChangeBackgroundRoute = computed(() =>
   window.location.href.includes("changeBackground") || document.getElementsByTagName("title")[0].innerText.includes("changeBackground"),
 );

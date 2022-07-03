@@ -103,10 +103,11 @@ app.whenReady().then(() => {
   const img = nativeImage.createFromPath(path);
   const nativeimg = img.resize({width: 16, height: 16});
   tray = new Tray(nativeimg);
+
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Change background', type: 'normal', click: () => {
       try{
-        // TODO: CHECK WHY THIS IS NOT WORKING
+        //console.log('BrowserWindow.getAllWindows()', BrowserWindow.getAllWindows().map(w => w.title));
         BrowserWindow.getAllWindows().filter(window => window.title === 'Upload Background')[0]?.destroy();
       }
       catch(e){
@@ -118,7 +119,7 @@ app.whenReady().then(() => {
     } },
     { label: 'Upload a new background', type: 'normal', click: () => {
       try{
-        // TODO: CHECK WHY THIS IS NOT WORKING
+        //console.log('BrowserWindow.getAllWindows()', BrowserWindow.getAllWindows().map(w => w.title));
         BrowserWindow.getAllWindows().filter(window => window.title === 'Change Background')[0]?.destroy();
       }
       catch(e){
